@@ -22,7 +22,21 @@ def get_data(file):
     stock = df[cols]
 	stock.index = pd.DatetimeIndex(stock['QTime'])
 	stk = stock.between_time(time(9,30), time(15,0))
-	resamples = df.resample('2S', fill_method='ffill')
+	ret_index = retindex(stk)
+	dic = {'F': 0, 'B': 1, 'S': 2}
+	trdirec = stk['Trdirec'].map(dic)
+	ret_index['Trdirec'] = trdirec
+	resamp = ret_index.resample('2S', fill_method='ffill')
+	return resamp
+
+
+def retindex(df, cols=['TPrice', 'TVolume_accu', 'TDeals_accu', 'Bidpr1', 'Bidpr2', 'Bidpr3',
+        'Askpr1', 'Askpr2', 'Askpr3']):
+	# calculate the returns of all features.
+    returns = df[cols].pct_change()
+    ret_index = (1 + returns).cumprod()
+    ret_index.ix[0,cols] = 1
+    return ret_index
 
 
 def corr(df1, df2):

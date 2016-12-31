@@ -26,7 +26,7 @@ def get_data(file):
 	reader = pd.read_csv(os.path.join(PATH,file),encoding='gbk',iterator=True)
 	df = reader.get_chunk(10000)
 	df = df[df.Qdate == '1/04/2013']
-    stock = df[columns1]
+	stock = df[columns1]
 	stock.index = pd.DatetimeIndex(stock['QTime'])
 	stk = stock.between_time(time(9,30), time(15,0))
 	ret_index = retindex(stk)

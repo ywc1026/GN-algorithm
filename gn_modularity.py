@@ -39,10 +39,10 @@ def get_data(file):
 
 def retindex(df, cols=columns2):
 	# calculate the returns of all features.
-    returns = df[cols].pct_change()
-    ret_index = (1 + returns).cumprod()
-    ret_index.ix[0,cols] = 1
-    return ret_index
+	returns = df[cols].pct_change()
+	ret_index = (1 + returns).cumprod()
+	ret_index.ix[0,cols] = 1
+	return ret_index
 
 
 def eucldist(df1, df2):

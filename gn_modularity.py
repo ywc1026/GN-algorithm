@@ -119,14 +119,29 @@ def runGirvanNewman(G, Orig_deg, m_):
 	nx.draw_networkx_edges(G, pos)
 	nx.draw_networkx_labels(G, pos)
 	plt.axis('off')
-	plt.title('delay10min')    
+	plt.title('Related network')    
 	plt.show()
 
 
-
-
 if __name__ == '__main__':
-	corr = []
+	G = nx.Graph()
+	for i in range(len(fileList)-1):
+		for j in range(i+1, len(fileList)):
+			eucdis = eucldist(fileList[i], fileList[j])
+			G.add_edge(fileList[i], fileList[j], weight=eucdis)
+
+	T = nx.minimum_spanning_tree(G)            
+	n = T.number_of_nodes()
+	A = nx.adj_matrix(T)
+
+	m_ = 0.0   
+	for i in range(0, n):
+	    for j in range(0, n):
+	    	m_ += A[i,j]
+	m_ = m_/2.0
+	Orig_deg = {}
+	Orig_deg = UpdateDeg(A, T.nodes())
+	runGirvanNewman(T, Orig_deg, m_)
 
 
 

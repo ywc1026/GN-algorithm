@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import networkx as nx
+from datetime import time
 import os
 
 
@@ -29,7 +30,7 @@ def get_data(file):
 	stock = df[columns1]
 	stock.index = pd.DatetimeIndex(stock['QTime'])
 	stk = stock.between_time(time(9,30), time(15,0))
-	ret_index = retindex(stk)
+	ret_index = retindex(stk[columns2])
 	dic = {'F': 0, 'B': 1, 'S': 2}
 	trdirec = stk['Trdirec'].map(dic)
 	ret_index['Trdirec'] = trdirec
@@ -37,11 +38,11 @@ def get_data(file):
 	return resamp
 
 
-def retindex(df, cols=columns2):
+def retindex(df):
 	# calculate the returns of all features.
-	returns = df[cols].pct_change()
+	returns = df.pct_change()
 	ret_index = (1 + returns).cumprod()
-	ret_index.ix[0,cols] = 1
+	ret_index[:1] = 1
 	return ret_index
 
 

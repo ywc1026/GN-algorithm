@@ -3,6 +3,7 @@
 __author__ = "yuweicheng"
 
 
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import networkx as nx
@@ -39,8 +40,8 @@ def retindex(df, cols=['TPrice', 'TVolume_accu', 'TDeals_accu', 'Bidpr1', 'Bidpr
     return ret_index
 
 
-def corr(df1, df2):
-	# calculate the correlation of two stock.
+def eucldist(df1, df2):
+	# calculate the euclidean distance of two stock.
 	pass
 
 

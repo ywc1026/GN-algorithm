@@ -47,6 +47,13 @@ def retindex(df, cols=columns2):
 
 def eucldist(df1, df2):
 	# calculate the euclidean distance of two stock.
+	array1 = np.array(df1.reset_index()[columns3])
+	array2 = np.array(df2.reset_index()[columns3])
+	length = min(len(array1), len(array2))
+	arr1 = array1[:length, :]
+	arr2 = array2[:length, :]
+	eucdist = np.linalg.norm(arr1-arr2) / length
+	return eucdist
 	
 
 

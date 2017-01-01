@@ -114,14 +114,15 @@ def runGirvanNewman(G, Orig_deg, m_):
 	    print ("current modularity: %f" % Q)
 	    if Q > BestQ:
 	        BestQ = Q
-	        Bestcomps = nx.connected_components(G)    
+	        Bestcomps = nx.connected_components(G)
+	        list_nodes = [comps for comps in Bestcomps]    
 	        print("comps:")
 	        print(Bestcomps)
 
 	pos = nx.spring_layout(G)
-	for i in range(9):
+	for i in range(len(list_nodes)):
 		count += 1.
-		nx.draw_networkx_nodes(G, pos, Bestcomps[i], node_colors=count/size)
+		nx.draw_networkx_nodes(G, pos, list_nodes[i], node_colors=count/size)
 	nx.draw_networkx_edges(G, pos)
 	nx.draw_networkx_labels(G, pos)
 	plt.axis('off')

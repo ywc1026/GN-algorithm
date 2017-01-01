@@ -115,13 +115,13 @@ def runGirvanNewman(G, Orig_deg, m_):
 	        print("comps:")
 	        print(Bestcomps)
 
-	pos = nx.spring_layout(G)
-	nx.draw_networkx_nodes(G, pos)
-	nx.draw_networkx_edges(G, pos)
-	nx.draw_networkx_labels(G, pos)
-	plt.axis('off')
-	plt.title('Related network')    
-	plt.show()
+	# pos = nx.spring_layout(G)
+	# nx.draw_networkx_nodes(G, pos)
+	# nx.draw_networkx_edges(G, pos)
+	# nx.draw_networkx_labels(G, pos)
+	# plt.axis('off')
+	# plt.title('Related network')    
+	# plt.show()
 
 
 if __name__ == '__main__':

@@ -108,7 +108,7 @@ def runGirvanNewman(G, Orig_deg, m_):
 	Q = 0.0
 	size  = float(len(G))
 	count = 0.
-	for i in range(6):
+	for i in range(5):
 	    CmtyGirvanNewmanStep(G)
 	    Q = modularity(G, Orig_deg, m_)
 	    print ("current modularity: %f" % Q)
@@ -122,7 +122,7 @@ def runGirvanNewman(G, Orig_deg, m_):
 	pos = nx.spring_layout(G)
 	for i in range(len(list_nodes)):
 		count += 1.
-		nx.draw_networkx_nodes(G, pos, list_nodes[i], node_colors=count/size)
+		nx.draw_networkx_nodes(G, pos, list_nodes[i], node_colors=str(count/size))
 	nx.draw_networkx_edges(G, pos)
 	nx.draw_networkx_labels(G, pos)
 	plt.axis('off')

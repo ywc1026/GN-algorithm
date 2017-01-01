@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 
 __author__ = "yuweicheng"
 
@@ -106,23 +107,22 @@ def runGirvanNewman(G, Orig_deg, m_):
 	# run the GN algorithm
 	BestQ = 0.0
 	Q = 0.0
-	size  = float(len(G))
-	count = 0.
 	for i in range(5):
 	    CmtyGirvanNewmanStep(G)
 	    Q = modularity(G, Orig_deg, m_)
 	    print ("current modularity: %f" % Q)
 	    if Q > BestQ:
 	        BestQ = Q
-	        Bestcomps = nx.connected_components(G)
-	        list_nodes = [comps for comps in Bestcomps]    
+	        Bestcomps = nx.connected_components(G)    
 	        print("comps:")
 	        print(Bestcomps)
 
+	# visualize
+	nodes = [list(comps) for comps in Bestcomps]
 	pos = nx.spring_layout(G)
-	for i in range(len(list_nodes)):
-		count += 1.
-		nx.draw_networkx_nodes(G, pos, list_nodes[i], node_colors=str(count/size))
+	for i in range(len(nodes)):
+		nx.draw_networkx_nodes(G, pos, nodelist=nodes[i], 
+			node_color=plt.cm.cool(i/8.))
 	nx.draw_networkx_edges(G, pos)
 	nx.draw_networkx_labels(G, pos)
 	plt.axis('off')
@@ -131,11 +131,13 @@ def runGirvanNewman(G, Orig_deg, m_):
 
 
 if __name__ == '__main__':
+	dist = []
 	G = nx.Graph()
 	for i in range(len(fileList)-1):
 		for j in range(i+1, len(fileList)):
 			eucdis = eucldist(fileList[i], fileList[j])
 			G.add_edge(fileList[i], fileList[j], weight=eucdis)
+			dist.append(eucdis)
 
 	T = nx.minimum_spanning_tree(G)            
 	n = T.number_of_nodes()

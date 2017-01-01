@@ -41,7 +41,8 @@ def get_data(file):
 def retindex(df):
 	# calculate the returns of all features.
 	returns = df.pct_change()
-	ret_index = (1 + returns).cumprod()
+	# ret_index = (1 + returns).cumprod()
+	ret_index = returns
 	ret_index[:1] = 1
 	return ret_index
 
@@ -105,7 +106,9 @@ def runGirvanNewman(G, Orig_deg, m_):
 	# run the GN algorithm
 	BestQ = 0.0
 	Q = 0.0
-	for i in range(5):
+	size  = float(len(G))
+	count = 0.
+	for i in range(6):
 	    CmtyGirvanNewmanStep(G)
 	    Q = modularity(G, Orig_deg, m_)
 	    print ("current modularity: %f" % Q)
@@ -115,13 +118,15 @@ def runGirvanNewman(G, Orig_deg, m_):
 	        print("comps:")
 	        print(Bestcomps)
 
-	# pos = nx.spring_layout(G)
-	# nx.draw_networkx_nodes(G, pos)
-	# nx.draw_networkx_edges(G, pos)
-	# nx.draw_networkx_labels(G, pos)
-	# plt.axis('off')
-	# plt.title('Related network')    
-	# plt.show()
+	pos = nx.spring_layout(G)
+	for i in range(9):
+		count += 1.
+		nx.draw_networkx_nodes(G, pos, Bestcomps[i], node_colors=count/size)
+	nx.draw_networkx_edges(G, pos)
+	nx.draw_networkx_labels(G, pos)
+	plt.axis('off')
+	plt.title('Related network')    
+	plt.show()
 
 
 if __name__ == '__main__':

@@ -123,6 +123,10 @@ def runGirvanNewman(G, Orig_deg, m_):
 	for i in range(len(nodes)):
 		nx.draw_networkx_nodes(G, pos, nodelist=nodes[i], 
 			node_color=plt.cm.cool(i/8.))
+		# nx.draw_networkx_nodes(G, pos, nodelist=nodes[i],
+		# 	node_color=plt.cm.spectral(i/8.))
+		# nx.draw_networkx_nodes(G, pos, nodelist=nodes[i],
+		# 	node_color=str(i/8.))
 	nx.draw_networkx_edges(G, pos)
 	nx.draw_networkx_labels(G, pos)
 	plt.axis('off')
